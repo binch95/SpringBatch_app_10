@@ -1,4 +1,4 @@
-package org.koreait.exam.batch.springbatch_app_10.base;
+package org.koreait.exam.batch.springbatch_app_10.app.base;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -25,10 +25,12 @@ public class AppConfig {
     public void setActiveProfile(String value) {
         activeProfile = value;
     }
+
     @Value("${custom.site.name}")
     public void setSiteName(String siteName) {
         AppConfig.siteName = siteName;
     }
+
     @Value("${custom.site.baseUrl}")
     public void setSiteBaseUrl(String siteBaseUrl) {
         AppConfig.siteBaseUrl = siteBaseUrl;

@@ -1,16 +1,16 @@
-package org.koreait.exam.batch.springbatch_app_10.base.initData;
+package org.koreait.exam.batch.springbatch_app_10.app.base.initData;
 
+import org.koreait.exam.batch.springbatch_app_10.app.member.service.MemberService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-@Configuration
+
 @Profile("dev")
 public class DevInitData implements InitDataBefore {
     @Bean
-    CommandLineRunner initData() {
+    CommandLineRunner initData(MemberService memberService) {
         return args -> {
-            before();
+            before(memberService);
         };
     }
 }

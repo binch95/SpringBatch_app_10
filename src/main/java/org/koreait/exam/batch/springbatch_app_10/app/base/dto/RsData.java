@@ -1,4 +1,4 @@
-package org.koreait.exam.batch.springbatch_app_10.base.dto;
+package org.koreait.exam.batch.springbatch_app_10.app.base.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,10 +1,10 @@
-package org.koreait.exam.batch.springbatch_app_10.utill;
+package org.koreait.exam.batch.springbatch_app_10.util;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.koreait.exam.batch.springbatch_app_10.base.AppConfig;
-import org.koreait.exam.batch.springbatch_app_10.base.dto.RsData;
+import org.koreait.exam.batch.springbatch_app_10.app.base.AppConfig;
+import org.koreait.exam.batch.springbatch_app_10.app.base.dto.RsData;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
