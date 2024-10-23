@@ -22,8 +22,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
-@AutoConfigureMockMvc
-@Transactional
+@AutoConfigureMockMvc // MockMVC 설정  / MockMVC == 실제 웹서버를 띄우지 않아도 HTTP요청을 흉내내서 컨트롤러 메서드를 실행
+@Transactional // 테스트 메서드가 끝나면 다시 롤백
 @ActiveProfiles("test")
 public class MemberControllerTests {
     @Autowired
