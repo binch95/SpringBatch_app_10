@@ -4,6 +4,7 @@ import org.koreait.exam.batch.springbatch_app_10.app.member.entity.Member;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class MemberContext extends User {
     private final LocalDateTime modifyDate;
     private final String username;
     private final String email;
+
     public MemberContext(Member member, List<GrantedAuthority> authorities) {
         super(member.getUsername(), member.getPassword(), authorities);
         this.id = member.getId();
@@ -22,6 +24,7 @@ public class MemberContext extends User {
         this.username = member.getUsername();
         this.email = member.getEmail();
     }
+
     public Member getMember() {
         return Member
                 .builder()
@@ -32,6 +35,7 @@ public class MemberContext extends User {
                 .email(email)
                 .build();
     }
+
     public String getName() {
         return getUsername();
     }

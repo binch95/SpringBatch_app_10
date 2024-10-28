@@ -1,8 +1,5 @@
 package org.koreait.exam.batch.springbatch_app_10.app.song.controller;
 
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.koreait.exam.batch.springbatch_app_10.app.member.entity.Member;
 import org.koreait.exam.batch.springbatch_app_10.app.security.dto.MemberContext;
 import org.koreait.exam.batch.springbatch_app_10.app.song.entity.Song;
@@ -11,6 +8,8 @@ import org.koreait.exam.batch.springbatch_app_10.app.song.exception.ActorCanNotS
 import org.koreait.exam.batch.springbatch_app_10.app.song.form.SongForm;
 import org.koreait.exam.batch.springbatch_app_10.app.song.service.SongService;
 import org.koreait.exam.batch.springbatch_app_10.util.Ut;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.validation.Valid;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/song")
@@ -38,7 +39,6 @@ public class SongController {
         Song song = songService.create(author, songForm.getSubject(), songForm.getContent());
         return "redirect:/song/" + song.getId() + "?msg=" + Ut.url.encode("%d번 음원이 생성되었습니다.".formatted(song.getId()));
     }
-
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}/modify")
     public String showModify(@AuthenticationPrincipal MemberContext memberContext, @PathVariable long id, Model model) {

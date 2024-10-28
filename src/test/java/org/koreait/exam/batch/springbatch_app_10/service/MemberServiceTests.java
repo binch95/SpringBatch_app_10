@@ -1,16 +1,17 @@
 package org.koreait.exam.batch.springbatch_app_10.service;
 
-
+import com.koreait.exam.springbatch_app_10.app.member.entity.Member;
+import com.koreait.exam.springbatch_app_10.app.member.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.koreait.exam.batch.springbatch_app_10.app.member.entity.Member;
-import org.koreait.exam.batch.springbatch_app_10.app.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+
 import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
 @Transactional
 @ActiveProfiles("test")

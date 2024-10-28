@@ -1,12 +1,12 @@
 package org.koreait.exam.batch.springbatch_app_10.app.product.entity;
 
+import org.koreait.exam.batch.springbatch_app_10.app.base.entity.BaseEntity;
+import org.koreait.exam.batch.springbatch_app_10.app.member.entity.Member;
+import org.koreait.exam.batch.springbatch_app_10.app.song.entity.Song;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.koreait.exam.batch.springbatch_app_10.app.base.entity.BaseEntity;
-import org.koreait.exam.batch.springbatch_app_10.app.member.entity.Member;
-import org.koreait.exam.batch.springbatch_app_10.app.song.entity.Song;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,4 +26,20 @@ public class Product extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Song song;
     private int price;
+
+    public Product(long id) {
+        super(id);
+    }
+
+    public int getSalePrice() {
+        return getPrice();
+    }
+
+    public int getWholesalePrice() {
+        return (int) Math.ceil(getPrice() * 0.7);
+    }
+
+    public boolean isOrderable() {
+        return true;
+    }
 }

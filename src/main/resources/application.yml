@@ -25,7 +25,7 @@ spring:
 logging:
   level:
     root: info
-    com.koreait.exam.springbatch_app_10.app : debug
+    org.koreait.exam.batch.springbatch_app_10.app : debug
     org.hibernate.type.descriptor.sql : trace
 custom:
   site:

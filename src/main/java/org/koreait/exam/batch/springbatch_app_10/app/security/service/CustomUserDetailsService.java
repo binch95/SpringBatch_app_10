@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,12 @@ public class CustomUserDetailsService implements UserDetailsService { // 사용�
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = memberRepository.findByUsername(username).get();
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("MEMBER")); // MEMBER 권한을 부여(권한 객체는 "SimpleGrantedAuthority"를 이용)
+
+        if (member.getUsername().equals("user1")) {
+            authorities.add(new SimpleGrantedAuthority("ADMIN"));
+        }
+
+        authorities.add(new SimpleGrantedAuthority("MEMBER")); // MEMBER 권한을 부여/ 권한 객체는 SimpleGrantedAuthority
         return new MemberContext(member, authorities);
     }
 }

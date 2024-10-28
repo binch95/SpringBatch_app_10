@@ -1,23 +1,46 @@
 package org.koreait.exam.batch.springbatch_app_10.util;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.koreait.exam.batch.springbatch_app_10.app.base.AppConfig;
 import org.koreait.exam.batch.springbatch_app_10.app.base.dto.RsData;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-
 public class Ut {
+    public static class date {
+        public static int getEndDayOf(int year, int month) {
+            String yearMonth = year + "-" + "%02d".formatted(month);
+            return getEndDayOf(yearMonth);
+        }
+        public static int getEndDayOf(String yearMonth) {
+            LocalDate convertedDate = LocalDate.parse(yearMonth + "-01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            convertedDate = convertedDate.withDayOfMonth(
+                    convertedDate.getMonth().length(convertedDate.isLeapYear()));
+            return convertedDate.getDayOfMonth();
+        }
+        public static LocalDateTime parse(String pattern, String dateText) {
+            return LocalDateTime.parse(dateText, DateTimeFormatter.ofPattern(pattern));
+        }
+        public static LocalDateTime parse(String dateText) {
+            return parse("yyyy-MM-dd HH:mm:ss.SSSSSS", dateText);
+        }
+    }
+
     private static ObjectMapper getObjectMapper() {
         return (ObjectMapper) AppConfig.getContext().getBean("objectMapper");
     }
+
     public static class json {
         public static Object toStr(Map<String, Object> map) {
             try {
@@ -27,6 +50,7 @@ public class Ut {
                 return null;
             }
         }
+
         public static Map<String, Object> toMap(String jsonStr) {
             try {
                 return getObjectMapper().readValue(jsonStr, LinkedHashMap.class);
@@ -36,6 +60,7 @@ public class Ut {
             }
         }
     }
+
     public static <K, V> Map<K, V> mapOf(Object... args) {
         Map<K, V> map = new LinkedHashMap<>();
         int size = args.length / 2;
@@ -48,13 +73,16 @@ public class Ut {
         }
         return map;
     }
+
     public static class spring {
         public static <T> ResponseEntity<RsData> responseEntityOf(RsData<T> rsData) {
             return responseEntityOf(rsData, null);
         }
+
         public static <T> ResponseEntity<RsData> responseEntityOf(RsData<T> rsData, HttpHeaders headers) {
             return new ResponseEntity<>(rsData, headers, rsData.isSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
         }
+
         public static HttpHeaders httpHeadersOf(String... args) {
             HttpHeaders headers = new HttpHeaders();
             Map<String, String> map = Ut.mapOf(args);
@@ -65,11 +93,13 @@ public class Ut {
             return headers;
         }
     }
+
     public static class url {
         public static boolean isUrl(String url) {
             if (url == null) return false;
             return url.matches("^(https?):\\/\\/([^:\\/\\s]+)(:([^\\/]*))?((\\/[^\\s/\\/]+)*)?\\/?([^#\\s\\?]*)(\\?([^#\\s]*))?(#(\\w*))?$");
         }
+
         public static String addQueryParam(String url, String paramName, String paramValue) {
             if (url.contains("?") == false) {
                 url += "?";
@@ -77,11 +107,13 @@ public class Ut {
             url += paramName + "=" + encode(paramValue);
             return url;
         }
+
         public static String modifyQueryParam(String url, String paramName, String paramValue) {
             url = deleteQueryParam(url, paramName);
             url = addQueryParam(url, paramName, paramValue);
             return url;
         }
+
         private static String deleteQueryParam(String url, String paramName) {
             int startPoint = url.indexOf(paramName + "=");
             if (startPoint == -1) return url;
@@ -92,6 +124,7 @@ public class Ut {
             String urlAfter = url.substring(startPoint + endPoint + 1);
             return url.substring(0, startPoint) + urlAfter;
         }
+
         public static String encode(String str) {
             try {
                 return URLEncoder.encode(str, "UTF-8");

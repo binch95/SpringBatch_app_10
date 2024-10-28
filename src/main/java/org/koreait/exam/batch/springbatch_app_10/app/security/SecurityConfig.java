@@ -11,8 +11,8 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
-@EnableWebSecurity // 웹 보안 활성화 --> Spring Security 기본 설정 사용
-@EnableGlobalMethodSecurity(prePostEnabled = true) // 메서드 단위 보안 설정 // 특정 메서드에 관한 부여 및 제한
+@EnableWebSecurity // 웹 보안 활성화 -> Spring Security 기본 설정 사용
+@EnableGlobalMethodSecurity(prePostEnabled = true) // 메서드 단위 보안 설정 // 특정 메서드에 권한 부여 및 제한
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final AuthenticationSuccessHandler authenticationSuccessHandler; // 인증 성공시
@@ -23,8 +23,8 @@ public class SecurityConfig {
         http
                 .formLogin(
                         formLogin -> formLogin
-                                .loginPage("/member/login") // GET 로그인 페이지
-                                .loginProcessingUrl("/member/login") // POST 로그인 처리
+                                .loginPage("/member/login") // 로그인 페이지(GET) URL
+                                .loginProcessingUrl("/member/login") // 로그인 처리 URL (POST)
                                 .successHandler(authenticationSuccessHandler)
                                 .failureHandler(authenticationFailureHandler)
                 )
